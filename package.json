@@ -1,0 +1,22 @@
+{
+	"name": "bin",
+	"version": "1.0.0",
+	"main": "dist/index.js",
+	"bin": "bin/index.js",
+	"license": "",
+	"scripts": {
+		"dev": "watchexec --clear --restart --debounce 0 --exts 'ts' --watch src/ 'npm run build:js && ./bin/index.js'",
+		"build:js": "esbuild --bundle src/index.ts --outdir=dist --minify --sourcemap --platform=node --log-level=warning --external:sade",
+		"build:dts": "tsc --declaration --emitDeclarationOnly",
+		"build": "npm run build:js && npm run build:dts",
+		"prepublishOnly": "npm run build"
+	},
+	"devDependencies": {
+		"@types/node": "^14.0.13",
+		"@types/sade": "^1.7.1",
+		"esbuild": "^0.4.13"
+	},
+	"dependencies": {
+		"sade": "^1.7.3"
+	}
+}
